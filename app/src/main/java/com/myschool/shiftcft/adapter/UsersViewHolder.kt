@@ -13,7 +13,7 @@ class UsersViewHolder(private val binding: UserItemBinding) :
         binding.tvName.text = user.name
         binding.tvSurname.text = user.surname
         binding.tvPhone.text = user.phone
-        binding.tvAddress.text = user.address
+        binding.tvAddressCity.text = user.address
         binding.tvInitial.text = user.name.first().toString()
 
     }

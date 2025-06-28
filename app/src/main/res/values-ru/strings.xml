@@ -6,4 +6,5 @@
     <string name="add_users">Добавить пользователей</string>
     <string name="info">Информация</string>
     <string name="avatar">Аватар</string>
+    <string name="profile">Профиль</string>
 </resources>

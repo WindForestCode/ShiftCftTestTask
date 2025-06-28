@@ -15,35 +15,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            tools:text="name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintStart_toEndOf="@+id/image_avatar"
-            app:layout_constraintTop_toBottomOf="@+id/tv_surname" />
-
-        <TextView
-            android:id="@+id/tv_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/image_avatar"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/image_avatar"
-            app:layout_constraintTop_toBottomOf="@+id/image_avatar"
-            tools:text="address" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_surname"
+            tools:text="name" />
 
         <TextView
             android:id="@+id/tv_surname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            tools:text="surname"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintStart_toEndOf="@+id/image_avatar"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="surname" />
 
         <ImageView
             android:id="@+id/image_avatar"
@@ -62,11 +49,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            tools:text="date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.684"
             app:layout_constraintStart_toEndOf="@+id/tv_surname"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="date" />
 
         <TextView
             android:id="@+id/tv_initial"
@@ -91,5 +78,14 @@
             app:layout_constraintHorizontal_bias="0.95"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="88005553535" />
+
+        <TextView
+            android:id="@+id/tv_address_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/image_avatar"
+            app:layout_constraintStart_toStartOf="@+id/image_avatar"
+            app:layout_constraintTop_toBottomOf="@+id/image_avatar"
+            tools:text="City" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
