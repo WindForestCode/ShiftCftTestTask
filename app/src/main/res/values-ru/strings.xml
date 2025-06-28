@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ШифтЦФТ</string>
+    <string name="users">Пользователи</string>
+    <string name="refresh">Обновить</string>
+    <string name="add_users">Добавить пользователей</string>
+    <string name="info">Информация</string>
+    <string name="avatar">Аватар</string>
+</resources>

@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">ShiftCft</string>
+    <string name="users">Users</string>
+    <string name="refresh">Refresh</string>
+    <string name="add_users">Add users</string>
+    <string name="info">Info</string>
+    <string name="avatar">Avatar</string>
+
 </resources>
