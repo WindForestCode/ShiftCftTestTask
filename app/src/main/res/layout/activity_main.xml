@@ -12,5 +12,5 @@
         android:id="@+id/container"
         android:name="com.myschool.shiftcft.fragments.UsersFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent" />
 </LinearLayout>
