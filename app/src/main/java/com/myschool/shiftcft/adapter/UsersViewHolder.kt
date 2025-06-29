@@ -9,12 +9,12 @@ class UsersViewHolder(private val binding: UserItemBinding) :
 
     fun bind(user: User) {
 
-        binding.tvDate.text = user.birthday
-        binding.tvName.text = user.name
-        binding.tvSurname.text = user.surname
+        binding.tvDate.text = user.dob.date
+        binding.tvName.text = user.name.first
+        binding.tvSurname.text = user.name.last
         binding.tvPhone.text = user.phone
-        binding.tvAddressCity.text = user.address
-        binding.tvInitial.text = user.name.first().toString()
+        binding.tvAddressCity.text = user.location.city
+        binding.tvInitial.text = user.name.first.first().toString()
 
     }
 }

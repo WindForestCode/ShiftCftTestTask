@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey
 data class UserEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo("id")
-    val id: Long,
+    val id: Long = 0,
     @ColumnInfo("name")
     val name: String,
     @ColumnInfo("surname")
@@ -26,25 +26,63 @@ data class UserEntity(
     companion object {
         fun fromUser(user: User): UserEntity = with(user) {
             UserEntity(
-                id = id,
-                name = name,
-                surname = surname,
-                birthday = birthday,
+                name = name.first,
+                surname = name.last,
+                birthday = dob.date,
                 phone = phone,
-                address = address,
+                address = location.city,
                 gender = gender,
             )
         }
     }
 
     fun toUser(): User = User(
-        id = id,
-        name = name,
-        surname = surname,
-        birthday = birthday,
-        phone = phone,
-        address = address,
         gender = gender,
+        name = Name(
+            title = "",
+            first = name,
+            last = surname
+        ),
+        location = Location(
+            street = Street(
+                number = 0,
+                name = address
+            ),
+            city = address,
+            state = "",
+            country = "",
+            postcode = 0
+        ),
+        email = "",
+        login = Login(
+            uuid = "",
+            username = "",
+            password = "",
+            salt = "",
+            md5 = "",
+            sha1 = "",
+            sha256 = ""
+        ),
+        dob = Dob(
+            date = birthday,
+            age = 0
+        ),
+        registered = Registered(
+            date = "",
+            age = 0
+        ),
+        phone = phone,
+        cell = "",
+        id = Id(
+            name = "",
+            value = ""
+        ),
+        picture = Picture(
+            large = "",
+            medium = "",
+            thumbnail = ""
+        ),
+        nationality = ""
     )
 }
 
