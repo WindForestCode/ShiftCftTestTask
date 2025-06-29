@@ -1,7 +1,6 @@
 package com.myschool.shiftcft.repository
 
 import com.myschool.shiftcft.model.User
-import com.myschool.shiftcft.model.UserEntity
 import kotlinx.coroutines.flow.Flow
 
 interface DbUsersRepository {
