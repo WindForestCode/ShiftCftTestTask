@@ -48,7 +48,25 @@ class UsersFragment : Fragment() {
             }
         }
 
-        val adapter = UsersAdapter()
+        val adapter = UsersAdapter(
+            object : UsersAdapter.UserListener {
+
+                override fun onUserClicked(user: User) {
+
+                    val profileFragment = ProfileFragment().apply {
+                        arguments = Bundle().apply {
+                            putString(ProfileFragment.ARG_USER_ID, user.id.value)
+
+                        }
+                    }
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.container, profileFragment)
+                        .addToBackStack(null)
+                        .commit()
+                }
+
+            }
+        )
 
         binding.rcView.layoutManager = LinearLayoutManager(requireContext())
         binding.rcView.adapter = adapter

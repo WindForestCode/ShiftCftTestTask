@@ -81,7 +81,7 @@ data class UserEntity(
         cell = "",
         id = Id(
             name = "",
-            value = ""
+            value = id.toString()
         ),
         picture = Picture(
             large = "",
