@@ -1,6 +1,3 @@
-val retrofitVersion = "2.9.0"
-val roomVersion = "2.6.1"
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -38,25 +35,25 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-    buildFeatures{
+    buildFeatures {
         viewBinding = true
     }
 }
 
 dependencies {
 
-    implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0")
-    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
-    implementation("com.squareup.okhttp3:logging-interceptor")
-    implementation("androidx.room:room-ktx:$roomVersion")
-    ksp("androidx.room:room-compiler:$roomVersion")
-    implementation("com.squareup.okhttp3:okhttp")
-    implementation(platform("com.squareup.okhttp3:okhttp-bom:4.12.0"))
-    implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
-    implementation("com.github.bumptech.glide:glide:4.16.0")
-    implementation("androidx.fragment:fragment-ktx:1.4.1")
+    implementation(libs.retrofit2.kotlinx.serialization.converter)
+    implementation(libs.retrofit)
+    implementation(libs.logging.interceptor)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.okhttp)
+    implementation(platform(libs.okhttp.bom))
+    implementation(libs.retrofit2.kotlinx.serialization.converter)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.glide)
+    implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
