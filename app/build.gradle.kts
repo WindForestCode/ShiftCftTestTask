@@ -55,6 +55,7 @@ dependencies {
     implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
+    implementation("androidx.fragment:fragment-ktx:1.4.1")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

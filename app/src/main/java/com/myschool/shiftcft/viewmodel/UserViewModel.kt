@@ -2,6 +2,7 @@ package com.myschool.shiftcft.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.myschool.shiftcft.model.User
 import com.myschool.shiftcft.repository.RoomUsersRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -21,6 +22,10 @@ class UserViewModel(private val roomRepository: RoomUsersRepository) : ViewModel
                     it.copy(user = users)
                 }
             }.launchIn(viewModelScope)
+    }
+
+    fun saveUsers(users: List<User>) {
+        roomRepository.saveUser(users)
     }
 
 }
