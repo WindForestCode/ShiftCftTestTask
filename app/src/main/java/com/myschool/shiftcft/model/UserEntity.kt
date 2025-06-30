@@ -51,7 +51,7 @@ data class UserEntity(
             city = address,
             state = "",
             country = "",
-            postcode = 0
+            postcode = Postcode(""),
         ),
         email = "",
         login = Login(

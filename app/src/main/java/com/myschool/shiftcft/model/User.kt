@@ -1,5 +1,6 @@
 package com.myschool.shiftcft.model
 
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -52,8 +53,9 @@ data class Location(
     @SerialName("country")
     val country: String,
     @SerialName("postcode")
-    val postcode: Int
+    val postcode: Postcode,
 )
+
 
 @Serializable
 data class Street(
