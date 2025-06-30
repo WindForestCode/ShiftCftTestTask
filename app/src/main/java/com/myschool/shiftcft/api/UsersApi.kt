@@ -9,7 +9,10 @@ import retrofit2.http.Query
 interface UsersApi {
 
     @GET("api/")
-    fun getUsers(@Query("count") count: Int): Call<UserResponse>
+    fun getUsers(@Query("results") count: Int): Call<UserResponse>
+
+    @GET("api/??results=5")
+    fun getUsersTest(): Call<UserResponse>
 
     companion object {
         val INSTANCE: UsersApi by lazy {
