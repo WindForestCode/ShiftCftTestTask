@@ -11,9 +11,6 @@ interface UsersApi {
     @GET("api/")
     fun getUsers(@Query("results") count: Int): Call<UserResponse>
 
-    @GET("api/??results=5")
-    fun getUsersTest(): Call<UserResponse>
-
     companion object {
         val INSTANCE: UsersApi by lazy {
             RetrofitFactory.INSTANCE.create()

@@ -102,7 +102,7 @@ data class Id(
     @SerialName("name")
     val name: String,
     @SerialName("value")
-    val value: String
+    val value: String?
 )
 
 @Serializable
