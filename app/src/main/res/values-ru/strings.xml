@@ -7,4 +7,5 @@
     <string name="info">Информация</string>
     <string name="avatar">Аватар</string>
     <string name="profile">Профиль</string>
+    <string name="delete_users">Удалить пользователей</string>
 </resources>

@@ -1,6 +1,8 @@
 package com.myschool.shiftcft.adapter
 
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.myschool.shiftcft.databinding.UserItemBinding
 import com.myschool.shiftcft.model.User
 
@@ -14,7 +16,10 @@ class UsersViewHolder(private val binding: UserItemBinding) :
         binding.tvSurname.text = user.name.last
         binding.tvPhone.text = user.phone
         binding.tvAddressCity.text = user.location.city
-        binding.tvInitial.text = user.name.first.first().toString()
+        Glide.with(binding.imageAvatar)
+            .load(user.picture.thumbnail)
+            .transform(CircleCrop())
+            .into(binding.imageAvatar)
 
     }
 }

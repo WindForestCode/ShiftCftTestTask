@@ -56,19 +56,6 @@
             tools:text="date" />
 
         <TextView
-            android:id="@+id/tv_initial"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="11dp"
-            android:layout_marginBottom="11dp"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/image_avatar"
-            app:layout_constraintEnd_toEndOf="@+id/image_avatar"
-            app:layout_constraintStart_toStartOf="@+id/image_avatar"
-            app:layout_constraintTop_toTopOf="@+id/image_avatar"
-            tools:text="A" />
-
-        <TextView
             android:id="@+id/tv_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

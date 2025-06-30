@@ -22,6 +22,10 @@ data class UserEntity(
     val address: String,
     @ColumnInfo("gender")
     val gender: String,
+    @ColumnInfo("picture_small")
+    val pictureSmall: String,
+    @ColumnInfo("picture_big")
+    val pictureBig: String,
 ) {
     companion object {
         fun fromUser(user: User): UserEntity = with(user) {
@@ -32,6 +36,8 @@ data class UserEntity(
                 phone = phone,
                 address = location.city,
                 gender = gender,
+                pictureSmall = picture.thumbnail,
+                pictureBig = picture.medium
             )
         }
     }
@@ -79,8 +85,8 @@ data class UserEntity(
         ),
         picture = Picture(
             large = "",
-            medium = "",
-            thumbnail = ""
+            medium = pictureBig,
+            thumbnail = pictureSmall
         ),
         nationality = ""
     )

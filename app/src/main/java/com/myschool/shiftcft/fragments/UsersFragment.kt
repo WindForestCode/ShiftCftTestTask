@@ -90,7 +90,14 @@ class UsersFragment : Fragment() {
             }
         }
 
+        binding.buttonRefresh.setOnClickListener {
+            viewModel.deleteAllUsers()
+
+        }
+
+
         return binding.root
     }
+
 
 }
