@@ -13,7 +13,7 @@ class RoomUsersRepository(private val dao: UserDao) : DbUsersRepository {
 
 
     override fun saveUser(users: List<User>) {
-        dao.saveAll(users.map{
+        dao.saveAll(users.map {
             UserEntity.fromUser(it)
         })
     }

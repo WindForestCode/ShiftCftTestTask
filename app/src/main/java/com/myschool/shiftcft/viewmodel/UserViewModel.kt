@@ -28,7 +28,7 @@ class UserViewModel(private val roomRepository: RoomUsersRepository) : ViewModel
         roomRepository.saveUser(users)
     }
 
-    fun deleteAllUsers(){
+    fun deleteAllUsers() {
         roomRepository.deleteAll()
     }
 
