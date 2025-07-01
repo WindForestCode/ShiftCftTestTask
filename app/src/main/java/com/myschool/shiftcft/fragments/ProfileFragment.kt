@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
-import com.myschool.shiftcft.R
 import com.myschool.shiftcft.database.AppDb
 import com.myschool.shiftcft.databinding.FragmentProfileBinding
 import com.myschool.shiftcft.repository.RoomUsersRepository
@@ -30,7 +29,11 @@ class ProfileFragment : Fragment() {
         val repository =
             RoomUsersRepository(AppDb.getInstance(requireContext().applicationContext).userDao)
         val user = repository.getUser(id.toLong())
-        binding.tvName.text = user?.name?.first
+        binding.tvNameSurname.text = buildString {
+            append(user?.name?.first)
+            append(" ")
+            append(user?.name?.last)
+        }
         binding.tvSex.text = user?.gender
         binding.tvEmail.text = user?.email
         binding.tvPhone.text = user?.phone
@@ -39,8 +42,18 @@ class ProfileFragment : Fragment() {
             .transform(CircleCrop())
             .into(binding.imageAvatar)
         binding.tvCellphone.text = user?.cell
-        binding.tvDateBirth.text = user?.dob?.date
+        binding.tvDateBirth.text = user?.dob?.date?.take(10)
         binding.tvUsername.text = user?.login?.username
+        binding.tvAge.text = user?.dob?.age.toString()
+        binding.tvAddress.text = buildString {
+            append(user?.location?.country)
+            append(", ")
+            append(user?.location?.city)
+            append(", ")
+            append(user?.location?.street?.name)
+            append("-")
+            append(user?.location?.street?.number)
+        }
 
         return binding.root
     }

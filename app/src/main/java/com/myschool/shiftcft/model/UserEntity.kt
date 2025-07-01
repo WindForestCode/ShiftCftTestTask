@@ -18,14 +18,28 @@ data class UserEntity(
     val birthday: String,
     @ColumnInfo("phone")
     val phone: String,
-    @ColumnInfo("address")
-    val address: String,
+    @ColumnInfo("cellphone")
+    val cellphone: String,
+    @ColumnInfo("username")
+    val username: String,
+    @ColumnInfo("country")
+    val country: String,
+    @ColumnInfo("city")
+    val city: String,
+    @ColumnInfo("street_name")
+    val streetName: String,
+    @ColumnInfo("street_number")
+    val streetNumber: Int,
     @ColumnInfo("gender")
     val gender: String,
     @ColumnInfo("picture_small")
     val pictureSmall: String,
     @ColumnInfo("picture_big")
     val pictureBig: String,
+    @ColumnInfo("email")
+    val email: String,
+    @ColumnInfo("age")
+    val age: Int,
 ) {
     companion object {
         fun fromUser(user: User): UserEntity = with(user) {
@@ -34,10 +48,17 @@ data class UserEntity(
                 surname = name.last,
                 birthday = dob.date,
                 phone = phone,
-                address = location.city,
+                username = login.username,
+                city = location.city,
+                country = location.country,
                 gender = gender,
                 pictureSmall = picture.thumbnail,
-                pictureBig = picture.medium
+                pictureBig = picture.medium,
+                email = email,
+                cellphone = cell,
+                age = dob.age,
+                streetNumber = location.street.number,
+                streetName = location.street.name,
             )
         }
     }
@@ -51,18 +72,18 @@ data class UserEntity(
         ),
         location = Location(
             street = Street(
-                number = 0,
-                name = address
+                number = streetNumber,
+                name = streetName,
             ),
-            city = address,
+            city = city,
             state = "",
-            country = "",
+            country = country,
             postcode = Postcode(""),
         ),
-        email = "",
+        email = email,
         login = Login(
             uuid = "",
-            username = "",
+            username = username,
             password = "",
             salt = "",
             md5 = "",
@@ -71,14 +92,14 @@ data class UserEntity(
         ),
         dob = Dob(
             date = birthday,
-            age = 0
+            age = age,
         ),
         registered = Registered(
             date = "",
             age = 0
         ),
         phone = phone,
-        cell = "",
+        cell = cellphone,
         id = Id(
             name = "",
             value = id.toString()
