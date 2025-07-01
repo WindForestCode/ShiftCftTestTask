@@ -1,5 +1,7 @@
 package com.myschool.shiftcft.fragments
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -29,6 +31,8 @@ class ProfileFragment : Fragment() {
         val repository =
             RoomUsersRepository(AppDb.getInstance(requireContext().applicationContext).userDao)
         val user = repository.getUser(id.toLong())
+
+
         binding.tvNameSurname.text = buildString {
             append(user?.name?.first)
             append(" ")
@@ -55,6 +59,34 @@ class ProfileFragment : Fragment() {
             append(user?.location?.street?.number)
         }
 
+        binding.tvEmail.setOnClickListener {
+            val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
+                data = Uri.parse("mailto:${user?.email}")
+            }
+            startActivity(Intent.createChooser(emailIntent, "Отправить email через:"))
+        }
+
+        binding.tvPhone.setOnClickListener {
+            val phoneIntent = Intent(Intent.ACTION_DIAL).apply {
+                data = Uri.parse("tel:${user?.phone}")
+            }
+            startActivity(phoneIntent)
+        }
+
+        binding.tvCellphone.setOnClickListener {
+            val cellIntent = Intent(Intent.ACTION_DIAL).apply {
+                data = Uri.parse("tel:${user?.cell}")
+            }
+            startActivity(cellIntent)
+        }
+
+        binding.tvAddress.setOnClickListener {
+            val addressUri = Uri.parse("geo:0,0?q=${Uri.encode(binding.tvAddress.text.toString())}")
+            val mapIntent = Intent(Intent.ACTION_VIEW, addressUri).apply {
+                setPackage("com.google.android.apps.maps")
+            }
+            startActivity(mapIntent)
+        }
         return binding.root
     }
 
