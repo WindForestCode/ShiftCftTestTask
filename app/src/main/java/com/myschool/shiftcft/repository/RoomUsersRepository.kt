@@ -26,7 +26,12 @@ class RoomUsersRepository(private val dao: UserDao) : DbUsersRepository {
         return if (dao.isEmpty()) {
             null
         } else {
-            dao.getUser(id)?.toUser()
+           return dao.getUser(id)?.toUser()
         }
     }
+
+    override fun getCount(): Long = dao.getCount()
+
+
+
 }

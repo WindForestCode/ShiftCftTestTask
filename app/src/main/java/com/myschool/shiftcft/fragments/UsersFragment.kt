@@ -100,7 +100,16 @@ class UsersFragment : Fragment() {
                 }
 
                 R.id.menu_info -> {
-                    Toast.makeText(context, "Возьмите в ШИФТ ЦФТ)", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        context,
+                        context?.getString(R.string.info_message),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    true
+                }
+
+                R.id.menu_delete -> {
+                    viewModel.deleteAllUsers()
                     true
                 }
 
@@ -110,6 +119,16 @@ class UsersFragment : Fragment() {
 
         binding.buttonRefresh.setOnClickListener {
             viewModel.deleteAllUsers()
+            networkRepository.getUsers(10, object : Callback<List<User>> {
+                override fun onSuccess(data: List<User>) {
+                    viewModel.saveUsers(data)
+
+                }
+
+                override fun onError(throwable: Throwable) {
+                    Log.e("UsersFragment", "Error fetching user", throwable)
+                }
+            })
 
         }
 

@@ -8,4 +8,5 @@ interface DbUsersRepository {
     fun saveUser(users: List<User>)
     fun deleteAll()
     fun getUser(id: Long): User?
+    fun getCount(): Long
 }

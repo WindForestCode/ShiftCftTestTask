@@ -23,10 +23,10 @@ interface UserDao {
     fun getUser(id: Long): UserEntity?
 
     @Query("SELECT COUNT(*) FROM users")
-    fun getCount(): Int
+    fun getCount(): Long
 
     fun isEmpty(): Boolean {
-        return getCount() == 0
+        return getCount() == 0L
     }
 
 }
