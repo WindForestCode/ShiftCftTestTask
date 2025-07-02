@@ -8,4 +8,10 @@
     <string name="profile">Profile</string>
     <string name="delete_users">Delete users</string>
     <string name="info_message">Take me to SHIFT CFT ;-)</string>
+    <string name="db_empty_message">Database is empty for forced update, first download users</string>
+    <string name="db_refreshed_message">Database successfully refreshed</string>
+    <string name="db_deleted_message">Database cleared</string>
+    <string name="db_is_empty_message">Database is already clear</string>
+    <string name="error_message">Unknown error</string>
+
 </resources>

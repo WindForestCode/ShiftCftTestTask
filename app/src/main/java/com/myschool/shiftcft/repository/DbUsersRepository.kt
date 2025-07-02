@@ -9,4 +9,5 @@ interface DbUsersRepository {
     fun deleteAll()
     fun getUser(id: Long): User?
     fun getCount(): Long
+    fun isEmpty(): Boolean
 }

@@ -32,4 +32,6 @@ class UserViewModel(private val roomRepository: RoomUsersRepository) : ViewModel
         roomRepository.deleteAll()
     }
 
+    fun isEmpty(): Boolean = roomRepository.isEmpty()
+
 }

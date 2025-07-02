@@ -94,22 +94,25 @@ class UsersFragment : Fragment() {
 
                         override fun onError(throwable: Throwable) {
                             Log.e("UsersFragment", "Error fetching user", throwable)
+                            showToast(context?.getString(R.string.error_message))
                         }
                     })
                     true
                 }
 
                 R.id.menu_info -> {
-                    Toast.makeText(
-                        context,
-                        context?.getString(R.string.info_message),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    showToast(context?.getString(R.string.info_message))
                     true
                 }
 
                 R.id.menu_delete -> {
-                    viewModel.deleteAllUsers()
+                    if (viewModel.isEmpty()) {
+                        showToast(context?.getString(R.string.db_is_empty_message))
+                    } else {
+                        viewModel.deleteAllUsers()
+                        showToast(context?.getString(R.string.db_deleted_message))
+                    }
+
                     true
                 }
 
@@ -118,22 +121,36 @@ class UsersFragment : Fragment() {
         }
 
         binding.buttonRefresh.setOnClickListener {
-            viewModel.deleteAllUsers()
-            networkRepository.getUsers(10, object : Callback<List<User>> {
-                override fun onSuccess(data: List<User>) {
-                    viewModel.saveUsers(data)
+            if (viewModel.isEmpty()) {
+                showToast(context?.getString(R.string.db_empty_message))
+            } else {
+                viewModel.deleteAllUsers()
+                networkRepository.getUsers(10, object : Callback<List<User>> {
+                    override fun onSuccess(data: List<User>) {
+                        viewModel.saveUsers(data)
+                        showToast(context?.getString(R.string.db_refreshed_message))
+                    }
 
-                }
+                    override fun onError(throwable: Throwable) {
+                        Log.e("UsersFragment", "Error fetching user", throwable)
+                        showToast(context?.getString(R.string.error_message))
 
-                override fun onError(throwable: Throwable) {
-                    Log.e("UsersFragment", "Error fetching user", throwable)
-                }
-            })
+                    }
+                })
+            }
+
 
         }
 
-
         return binding.root
+    }
+
+    private fun showToast(text: String?) {
+        Toast.makeText(
+            context,
+            text,
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
 }

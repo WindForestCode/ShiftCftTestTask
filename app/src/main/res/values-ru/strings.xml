@@ -9,4 +9,9 @@
     <string name="profile">Профиль</string>
     <string name="delete_users">Удалить пользователей</string>
     <string name="info_message">Возьмите меня в ШИФТ ЦФТ)</string>
+    <string name="db_empty_message">База данных пуста, сначала загрузите пользователей</string>
+    <string name="db_refreshed_message">База данных успешно обновлена</string>
+    <string name="db_deleted_message">База данных очищена</string>
+    <string name="db_is_empty_message">База данных уже пуста</string>
+    <string name="error_message">Неизвестная ошибка</string>
 </resources>
