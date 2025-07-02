@@ -14,6 +14,7 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -146,5 +147,19 @@
         app:layout_constraintStart_toStartOf="@+id/tv_cellphone"
         app:layout_constraintTop_toBottomOf="@+id/tv_cellphone"
         tools:text="address" />
+
+    <ImageView
+        android:id="@+id/image_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:contentDescription="@string/button_back"
+        android:src="@drawable/ic_arrow_back"
+        app:layout_constraintBottom_toBottomOf="@+id/profile_toolbar"
+        app:layout_constraintEnd_toStartOf="@+id/tv_toolbar_profile"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

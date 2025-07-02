@@ -14,4 +14,5 @@
     <string name="db_deleted_message">База данных очищена</string>
     <string name="db_is_empty_message">База данных уже пуста</string>
     <string name="error_message">Неизвестная ошибка</string>
+    <string name="button_back">Кнопка назад</string>
 </resources>

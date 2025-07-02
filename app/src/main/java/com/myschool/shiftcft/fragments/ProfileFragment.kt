@@ -87,6 +87,11 @@ class ProfileFragment : Fragment() {
             }
             startActivity(mapIntent)
         }
+
+        binding.imageBack.setOnClickListener{
+            parentFragmentManager.popBackStack()
+        }
+
         return binding.root
     }
 
