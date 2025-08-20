@@ -34,6 +34,8 @@ class UsersFragment : Fragment(), CountDialogFragment.CountInputListener {
     private lateinit var networkRepository: ApiUsersRepository
     private val viewModel: UserViewModel by activityViewModels()
 
+    private var isFirstLoad = true
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -77,12 +79,18 @@ class UsersFragment : Fragment(), CountDialogFragment.CountInputListener {
             OffsetDecoration(resources.getDimensionPixelOffset(R.dimen.small_spacing))
         )
 
+
         viewModel.uiState
             .flowWithLifecycle(lifecycle)
             .onEach {
-                adapter.submitList(it.user)
+                val previousSize = adapter.itemCount
+                adapter.submitList(it.user) {
+                    if (!isFirstLoad && it.user.size > previousSize) {
+                        binding.rcView.smoothScrollToPosition(0)
+                    }
+                    isFirstLoad = false
+                }
             }.launchIn(lifecycleScope)
-
 
 
         binding.toolbar.setOnMenuItemClickListener { menuItem ->
@@ -90,6 +98,7 @@ class UsersFragment : Fragment(), CountDialogFragment.CountInputListener {
                 R.id.menu_add -> {
                     Log.d("NewUsers", "button clicked")
                     showCountDialog()
+
 
                     true
                 }
@@ -169,6 +178,7 @@ class UsersFragment : Fragment(), CountDialogFragment.CountInputListener {
             override fun onSuccess(data: List<User>) {
                 Log.d("NewUsers", "${count}Users updated : $data")
                 viewModel.saveUsers(data)
+
 
             }
 
