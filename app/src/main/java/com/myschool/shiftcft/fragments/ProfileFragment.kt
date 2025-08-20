@@ -7,11 +7,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.myschool.shiftcft.database.AppDb
 import com.myschool.shiftcft.databinding.FragmentProfileBinding
+import com.myschool.shiftcft.model.User
 import com.myschool.shiftcft.repository.RoomUsersRepository
+import kotlinx.coroutines.launch
+import androidx.core.net.toUri
+import kotlinx.coroutines.async
+import kotlinx.coroutines.runBlocking
 
 
 class ProfileFragment : Fragment() {
@@ -30,7 +36,16 @@ class ProfileFragment : Fragment() {
         val id = arguments?.getString(ARG_USER_ID) ?: "0"
         val repository =
             RoomUsersRepository(AppDb.getInstance(requireContext().applicationContext).userDao)
-        val user = repository.getUser(id.toLong())
+
+        var user: User?
+        runBlocking {
+            user = repository.getUser(id.toLong())
+        }
+
+
+
+
+
 
 
         binding.tvNameSurname.text = buildString {
@@ -61,34 +76,34 @@ class ProfileFragment : Fragment() {
 
         binding.tvEmail.setOnClickListener {
             val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
-                data = Uri.parse("mailto:${user?.email}")
+                data = "mailto:${user?.email}".toUri()
             }
             startActivity(Intent.createChooser(emailIntent, "Отправить email через:"))
         }
 
         binding.tvPhone.setOnClickListener {
             val phoneIntent = Intent(Intent.ACTION_DIAL).apply {
-                data = Uri.parse("tel:${user?.phone}")
+                data = "tel:${user?.phone}".toUri()
             }
             startActivity(phoneIntent)
         }
 
         binding.tvCellphone.setOnClickListener {
             val cellIntent = Intent(Intent.ACTION_DIAL).apply {
-                data = Uri.parse("tel:${user?.cell}")
+                data = "tel:${user?.cell}".toUri()
             }
             startActivity(cellIntent)
         }
 
         binding.tvAddress.setOnClickListener {
-            val addressUri = Uri.parse("geo:0,0?q=${Uri.encode(binding.tvAddress.text.toString())}")
+            val addressUri = "geo:0,0?q=${Uri.encode(binding.tvAddress.text.toString())}".toUri()
             val mapIntent = Intent(Intent.ACTION_VIEW, addressUri).apply {
                 setPackage("com.google.android.apps.maps")
             }
             startActivity(mapIntent)
         }
 
-        binding.imageBack.setOnClickListener{
+        binding.imageBack.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
 

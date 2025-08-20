@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 class UserViewModel(private val roomRepository: RoomUsersRepository) : ViewModel() {
     private val _uiState = MutableStateFlow(UserUiState())
@@ -25,13 +26,23 @@ class UserViewModel(private val roomRepository: RoomUsersRepository) : ViewModel
     }
 
     fun saveUsers(users: List<User>) {
-        roomRepository.saveUser(users)
+        viewModelScope.launch {
+            roomRepository.saveUser(users)
+        }
+
     }
 
     fun deleteAllUsers() {
-        roomRepository.deleteAll()
+        viewModelScope.launch {
+            roomRepository.deleteAll()
+        }
+
     }
 
-    fun isEmpty(): Boolean = roomRepository.isEmpty()
-
+    fun isEmpty(callback: (Boolean) -> Unit) {
+        viewModelScope.launch {
+            val result = roomRepository.isEmpty()
+            callback(result)
+        }
+    }
 }

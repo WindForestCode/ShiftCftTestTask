@@ -28,8 +28,11 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
 
-class UsersFragment : Fragment() {
+class UsersFragment : Fragment(), CountDialogFragment.CountInputListener {
 
+    private var count: Int = 0
+    private lateinit var networkRepository: ApiUsersRepository
+    private val viewModel: UserViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +41,7 @@ class UsersFragment : Fragment() {
 
         val binding = FragmentUsersBinding.inflate(inflater)
         val api = UsersApi.INSTANCE
-        val networkRepository = ApiUsersRepository(api)
+        networkRepository = ApiUsersRepository(api)
 
         val viewModel by activityViewModels<UserViewModel> {
             viewModelFactory {
@@ -60,7 +63,7 @@ class UsersFragment : Fragment() {
                         }
                     }
                     parentFragmentManager.beginTransaction()
-                        .replace(R.id.container, profileFragment)
+                        .replace(R.id.container, profileFragment, "profileFragment")
                         .addToBackStack(null)
                         .commit()
                 }
@@ -81,22 +84,13 @@ class UsersFragment : Fragment() {
             }.launchIn(lifecycleScope)
 
 
+
         binding.toolbar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.menu_add -> {
                     Log.d("NewUsers", "button clicked")
-                    networkRepository.getUsers(10, object : Callback<List<User>> {
-                        override fun onSuccess(data: List<User>) {
-                            Log.d("NewUsers", "Users updated: $data")
-                            viewModel.saveUsers(data)
+                    showCountDialog()
 
-                        }
-
-                        override fun onError(throwable: Throwable) {
-                            Log.e("UsersFragment", "Error fetching user", throwable)
-                            showToast(context?.getString(R.string.error_message))
-                        }
-                    })
                     true
                 }
 
@@ -106,11 +100,13 @@ class UsersFragment : Fragment() {
                 }
 
                 R.id.menu_delete -> {
-                    if (viewModel.isEmpty()) {
-                        showToast(context?.getString(R.string.db_is_empty_message))
-                    } else {
-                        viewModel.deleteAllUsers()
-                        showToast(context?.getString(R.string.db_deleted_message))
+                    viewModel.isEmpty { isEmpty ->
+                        if (isEmpty) {
+                            showToast(context?.getString(R.string.db_is_empty_message))
+                        } else {
+                            viewModel.deleteAllUsers()
+                            showToast(context?.getString(R.string.db_deleted_message))
+                        }
                     }
 
                     true
@@ -121,26 +117,29 @@ class UsersFragment : Fragment() {
         }
 
         binding.buttonRefresh.setOnClickListener {
-            if (viewModel.isEmpty()) {
-                showToast(context?.getString(R.string.db_empty_message))
-            } else {
-                viewModel.deleteAllUsers()
-                networkRepository.getUsers(10, object : Callback<List<User>> {
-                    override fun onSuccess(data: List<User>) {
-                        viewModel.saveUsers(data)
-                        showToast(context?.getString(R.string.db_refreshed_message))
-                    }
+            viewModel.isEmpty { isEmpty ->
+                if (isEmpty) {
+                    showToast(context?.getString(R.string.db_empty_message))
+                } else {
 
-                    override fun onError(throwable: Throwable) {
-                        Log.e("UsersFragment", "Error fetching user", throwable)
-                        showToast(context?.getString(R.string.error_message))
+                    viewModel.deleteAllUsers()
+                    networkRepository.getUsers(10, object : Callback<List<User>> {
+                        override fun onSuccess(data: List<User>) {
+                            viewModel.saveUsers(data)
+                            showToast(context?.getString(R.string.db_refreshed_message))
+                        }
 
-                    }
-                })
+                        override fun onError(throwable: Throwable) {
+                            Log.e("UsersFragment", "Error fetching user", throwable)
+                            showToast(context?.getString(R.string.error_message))
+
+                        }
+                    })
+                }
             }
-
-
         }
+
+
 
         return binding.root
     }
@@ -151,6 +150,33 @@ class UsersFragment : Fragment() {
             text,
             Toast.LENGTH_SHORT
         ).show()
+    }
+
+    private fun showCountDialog() {
+        val dialog = CountDialogFragment()
+        dialog.listener = this
+        dialog.show(parentFragmentManager, "CountDialog")
+    }
+
+
+    override fun onCountInput(count: Int) {
+        this.count = count
+        getUsers()
+    }
+
+    private fun getUsers() {
+        networkRepository.getUsers(count, object : Callback<List<User>> {
+            override fun onSuccess(data: List<User>) {
+                Log.d("NewUsers", "${count}Users updated : $data")
+                viewModel.saveUsers(data)
+
+            }
+
+            override fun onError(throwable: Throwable) {
+                Log.e("UsersFragment", "Error fetching user", throwable)
+                showToast(context?.getString(R.string.error_message))
+            }
+        })
     }
 
 }

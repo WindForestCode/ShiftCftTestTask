@@ -12,17 +12,17 @@ class RoomUsersRepository(private val dao: UserDao) : DbUsersRepository {
         .map { it.map(UserEntity::toUser) }
 
 
-    override fun saveUser(users: List<User>) {
+    override suspend fun saveUser(users: List<User>) {
         dao.saveAll(users.map {
             UserEntity.fromUser(it)
         })
     }
 
-    override fun deleteAll() {
+    override suspend fun deleteAll() {
         dao.deleteAll()
     }
 
-    override fun getUser(id: Long): User? {
+    override suspend fun getUser(id: Long): User? {
         return if (dao.isEmpty()) {
             null
         } else {
@@ -30,9 +30,9 @@ class RoomUsersRepository(private val dao: UserDao) : DbUsersRepository {
         }
     }
 
-    override fun getCount(): Long = dao.getCount()
+    override suspend fun getCount(): Long = dao.getCount()
 
-    override fun isEmpty(): Boolean = dao.isEmpty()
+    override suspend fun isEmpty(): Boolean = dao.isEmpty()
 
 
 }

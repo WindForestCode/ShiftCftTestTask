@@ -15,4 +15,8 @@
     <string name="db_is_empty_message">База данных уже пуста</string>
     <string name="error_message">Неизвестная ошибка</string>
     <string name="button_back">Кнопка назад</string>
+    <string name="hint_count">Число юзеров</string>
+    <string name="number_user_message">Введите число юзеров для загрузки</string>
+    <string name="ok_message">ОК</string>
+    <string name="cancel_message">Отмена</string>
 </resources>
