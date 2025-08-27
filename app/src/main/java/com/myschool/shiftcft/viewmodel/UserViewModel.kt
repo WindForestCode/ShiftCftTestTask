@@ -1,10 +1,14 @@
 package com.myschool.shiftcft.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.myschool.shiftcft.model.User
+import com.myschool.shiftcft.repository.ApiUsersRepository
 import com.myschool.shiftcft.repository.RoomUsersRepository
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -12,9 +16,18 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class UserViewModel(private val roomRepository: RoomUsersRepository) : ViewModel() {
+class UserViewModel(
+    private val roomRepository: RoomUsersRepository,
+    private val networkRepository: ApiUsersRepository
+) : ViewModel() {
     private val _uiState = MutableStateFlow(UserUiState())
     val uiState: StateFlow<UserUiState> = _uiState.asStateFlow()
+
+    private val _errorMessage = MutableSharedFlow<String>()
+    val errorMessage: SharedFlow<String> = _errorMessage
+
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
 
     init {
         roomRepository.getUsers()
@@ -28,6 +41,23 @@ class UserViewModel(private val roomRepository: RoomUsersRepository) : ViewModel
     fun saveUsers(users: List<User>) {
         viewModelScope.launch {
             roomRepository.saveUser(users)
+        }
+
+    }
+
+    fun getUsers(count: Int) {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                val users = networkRepository.getUsers(count)
+                saveUsers(users)
+            } catch (e: Exception) {
+                Log.e("UserViewModel", "error with download")
+                _errorMessage.emit("Ошибка")
+            } finally {
+                _isLoading.value = false
+            }
+
         }
 
     }

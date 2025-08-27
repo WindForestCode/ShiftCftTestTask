@@ -22,7 +22,6 @@ import com.myschool.shiftcft.itemdecoration.OffsetDecoration
 import com.myschool.shiftcft.model.User
 import com.myschool.shiftcft.repository.ApiUsersRepository
 import com.myschool.shiftcft.repository.RoomUsersRepository
-import com.myschool.shiftcft.util.Callback
 import com.myschool.shiftcft.viewmodel.UserViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -31,7 +30,6 @@ import kotlinx.coroutines.flow.onEach
 class UsersFragment : Fragment(), CountDialogFragment.CountInputListener {
 
     private var count: Int = 0
-    private lateinit var networkRepository: ApiUsersRepository
     private val viewModel: UserViewModel by activityViewModels()
 
     private var isFirstLoad = true
@@ -42,13 +40,15 @@ class UsersFragment : Fragment(), CountDialogFragment.CountInputListener {
     ): View? {
 
         val binding = FragmentUsersBinding.inflate(inflater)
-        val api = UsersApi.INSTANCE
-        networkRepository = ApiUsersRepository(api)
+
 
         val viewModel by activityViewModels<UserViewModel> {
             viewModelFactory {
                 initializer {
-                    UserViewModel(RoomUsersRepository(AppDb.getInstance(requireContext().applicationContext).userDao))
+                    UserViewModel(
+                        RoomUsersRepository(AppDb.getInstance(requireContext().applicationContext).userDao),
+                        ApiUsersRepository(UsersApi.INSTANCE),
+                    )
                 }
             }
         }
@@ -132,23 +132,10 @@ class UsersFragment : Fragment(), CountDialogFragment.CountInputListener {
                 } else {
 
                     viewModel.deleteAllUsers()
-                    networkRepository.getUsers(10, object : Callback<List<User>> {
-                        override fun onSuccess(data: List<User>) {
-                            viewModel.saveUsers(data)
-                            showToast(context?.getString(R.string.db_refreshed_message))
-                        }
-
-                        override fun onError(throwable: Throwable) {
-                            Log.e("UsersFragment", "Error fetching user", throwable)
-                            showToast(context?.getString(R.string.error_message))
-
-                        }
-                    })
+                    viewModel.getUsers(10)
                 }
             }
         }
-
-
 
         return binding.root
     }
@@ -170,23 +157,7 @@ class UsersFragment : Fragment(), CountDialogFragment.CountInputListener {
 
     override fun onCountInput(count: Int) {
         this.count = count
-        getUsers()
-    }
-
-    private fun getUsers() {
-        networkRepository.getUsers(count, object : Callback<List<User>> {
-            override fun onSuccess(data: List<User>) {
-                Log.d("NewUsers", "${count}Users updated : $data")
-                viewModel.saveUsers(data)
-
-
-            }
-
-            override fun onError(throwable: Throwable) {
-                Log.e("UsersFragment", "Error fetching user", throwable)
-                showToast(context?.getString(R.string.error_message))
-            }
-        })
+        viewModel.getUsers(count)
     }
 
 }
