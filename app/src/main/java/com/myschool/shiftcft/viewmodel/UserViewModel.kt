@@ -37,14 +37,12 @@ class UserViewModel(
                 }
             }.launchIn(viewModelScope)
     }
-
     fun saveUsers(users: List<User>) {
         viewModelScope.launch {
             roomRepository.saveUser(users)
         }
 
     }
-
     fun getUsers(count: Int) {
         viewModelScope.launch {
             _isLoading.value = true
@@ -61,14 +59,12 @@ class UserViewModel(
         }
 
     }
-
     fun deleteAllUsers() {
         viewModelScope.launch {
             roomRepository.deleteAll()
         }
 
     }
-
     fun isEmpty(callback: (Boolean) -> Unit) {
         viewModelScope.launch {
             val result = roomRepository.isEmpty()

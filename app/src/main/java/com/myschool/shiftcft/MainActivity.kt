@@ -1,5 +1,6 @@
 package com.myschool.shiftcft
 
+import android.content.IntentFilter
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
@@ -12,6 +13,8 @@ import com.myschool.shiftcft.fragments.CountDialogFragment
 import com.myschool.shiftcft.fragments.UsersFragment
 
 class MainActivity : AppCompatActivity(), CountDialogFragment.CountInputListener {
+
+    private val airplaneModeReceiver = MyReceiver()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,12 +34,23 @@ class MainActivity : AppCompatActivity(), CountDialogFragment.CountInputListener
 
     }
 
+    override fun onStart() {
+        registerReceiver(airplaneModeReceiver, IntentFilter("android.intent.action.AIRPLANE_MODE"))
+        super.onStart()
+    }
+
+
     override fun onCountInput(count: Int) {
         val fragment = supportFragmentManager.findFragmentById(R.id.container)
         if (fragment is UsersFragment) {
             Log.d("onCount", "onCount true count = $count")
             fragment.onCountInput(count)
         }
+    }
+
+    override fun onDestroy() {
+        unregisterReceiver(airplaneModeReceiver)
+        super.onDestroy()
     }
 
 }
