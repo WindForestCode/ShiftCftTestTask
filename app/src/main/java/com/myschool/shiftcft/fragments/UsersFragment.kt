@@ -31,7 +31,6 @@ class UsersFragment : Fragment(), CountDialogFragment.CountInputListener {
 
     private var count: Int = 0
     private val viewModel: UserViewModel by activityViewModels()
-
     private var isFirstLoad = true
 
     override fun onCreateView(

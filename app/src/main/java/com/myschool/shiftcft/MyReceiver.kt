@@ -17,7 +17,7 @@ class MyReceiver : BroadcastReceiver() {
             0
         ) != 0
 
-        if(isAirplaneModeOn){
+        if (isAirplaneModeOn) {
             Toast.makeText(context, "Включен режим в самолёте", Toast.LENGTH_SHORT).show()
         } else {
             Toast.makeText(context, "Выключен режим в самолёте", Toast.LENGTH_SHORT).show()
