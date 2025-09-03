@@ -3,11 +3,12 @@ plugins {
     alias(libs.plugins.kotlin.android)
     kotlin("plugin.serialization") version "1.9.21"
     id("com.google.devtools.ksp")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
     namespace = "com.myschool.shiftcft"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.myschool.shiftcft"
@@ -47,6 +48,9 @@ dependencies {
     implementation(libs.logging.interceptor)
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+    ksp(libs.dagger.compiler)
     implementation(libs.okhttp)
     implementation(platform(libs.okhttp.bom))
     implementation(libs.retrofit2.kotlinx.serialization.converter)
