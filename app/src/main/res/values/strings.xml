@@ -18,4 +18,6 @@
     <string name="number_user_message">Enter numbers of users to download</string>
     <string name="ok_message">OK</string>
     <string name="cancel_message">Cancel</string>
+    <string name="network_unavailable">Network is unavailable</string>
+    <string name="network_restored">Network is restored</string>
 </resources>

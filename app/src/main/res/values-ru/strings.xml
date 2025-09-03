@@ -19,4 +19,6 @@
     <string name="number_user_message">Введите число юзеров для загрузки</string>
     <string name="ok_message">ОК</string>
     <string name="cancel_message">Отмена</string>
+    <string name="network_unavailable">Сеть недоступна</string>
+    <string name="network_restored">Сеть восстановлена</string>
 </resources>

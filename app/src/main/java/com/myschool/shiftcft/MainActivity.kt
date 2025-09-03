@@ -17,6 +17,7 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.myschool.shiftcft.databinding.ActivityMainBinding
 import com.myschool.shiftcft.fragments.CountDialogFragment
 import com.myschool.shiftcft.fragments.UsersFragment
+import com.myschool.shiftcft.model.NetworkState
 import com.myschool.shiftcft.util.NetworkMonitor
 import com.myschool.shiftcft.viewmodel.NetworkViewModel
 import kotlinx.coroutines.launch
@@ -50,11 +51,18 @@ class MainActivity : AppCompatActivity(), CountDialogFragment.CountInputListener
                 .replace(R.id.container, UsersFragment(), "UsersFragment").commit()
         }
 
-
             lifecycleScope.launch {
                 repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    viewModel.networkStatus.collect { isConnected ->
-                        showNetworkStatus(isConnected)
+                    viewModel.networkState.collect { state ->
+                        when(state) {
+                            is NetworkState.Connected -> {}
+                            is NetworkState.Disconnected -> {
+                                showToast(getString(R.string.network_unavailable))
+                            }
+                            is NetworkState.Restored -> {
+                                showToast(getString(R.string.network_restored))
+                            }
+                        }
                     }
                 }
             }
@@ -70,10 +78,8 @@ class MainActivity : AppCompatActivity(), CountDialogFragment.CountInputListener
         super.onStart()
     }
 
-    fun showNetworkStatus(isConnected: Boolean) {
-        if(!isConnected){
-            Toast.makeText(this, "СЕТЬ НЕДОСТУПНА", Toast.LENGTH_SHORT).show()
-        }
+    fun showToast(text: String) {
+            Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
     }
 
     override fun onCountInput(count: Int) {
@@ -88,6 +94,4 @@ class MainActivity : AppCompatActivity(), CountDialogFragment.CountInputListener
         unregisterReceiver(airplaneModeReceiver)
         super.onDestroy()
     }
-
-
 }
