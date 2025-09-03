@@ -1,4 +1,4 @@
-package com.myschool.shiftcft
+package com.myschool.shiftcft.receiver
 
 import android.content.BroadcastReceiver
 import android.content.Context
