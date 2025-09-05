@@ -2,35 +2,31 @@ package com.myschool.shiftcft.fragments
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.myschool.shiftcft.R
 import com.myschool.shiftcft.adapter.UsersAdapter
-import com.myschool.shiftcft.api.UsersApi
-import com.myschool.shiftcft.database.AppDb
 import com.myschool.shiftcft.databinding.FragmentUsersBinding
 import com.myschool.shiftcft.itemdecoration.OffsetDecoration
 import com.myschool.shiftcft.model.User
-import com.myschool.shiftcft.repository.ApiUsersRepository
-import com.myschool.shiftcft.repository.RoomUsersRepository
 import com.myschool.shiftcft.viewmodel.UserViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
 
+@AndroidEntryPoint
 class UsersFragment : Fragment(), CountDialogFragment.CountInputListener {
 
     private var count: Int = 0
-    private val viewModel: UserViewModel by activityViewModels()
+    private val viewModel: UserViewModel by viewModels()
     private var isFirstLoad = true
 
     override fun onCreateView(
@@ -39,18 +35,6 @@ class UsersFragment : Fragment(), CountDialogFragment.CountInputListener {
     ): View? {
 
         val binding = FragmentUsersBinding.inflate(inflater)
-
-
-        val viewModel by activityViewModels<UserViewModel> {
-            viewModelFactory {
-                initializer {
-                    UserViewModel(
-                        RoomUsersRepository(AppDb.getInstance(requireContext().applicationContext).userDao),
-                        ApiUsersRepository(UsersApi.INSTANCE),
-                    )
-                }
-            }
-        }
 
         val adapter = UsersAdapter(
             object : UsersAdapter.UserListener {

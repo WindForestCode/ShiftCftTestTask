@@ -5,8 +5,9 @@ import com.myschool.shiftcft.model.User
 import com.myschool.shiftcft.model.UserEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class RoomUsersRepository(private val dao: UserDao) : DbUsersRepository {
+class RoomUsersRepository @Inject constructor(private val dao: UserDao) : DbUsersRepository {
 
     override fun getUsers(): Flow<List<User>> = dao.getAll()
         .map { it.map(UserEntity::toUser) }

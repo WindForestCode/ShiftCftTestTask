@@ -2,8 +2,10 @@ package com.myschool.shiftcft.repository
 
 import com.myschool.shiftcft.api.UsersApi
 import com.myschool.shiftcft.model.User
+import javax.inject.Inject
 
-class ApiUsersRepository(private val api: UsersApi) : NetworkUsersRepository {
+class ApiUsersRepository @Inject constructor(
+    private val api: UsersApi) : NetworkUsersRepository {
 
     override suspend fun getUsers(count: Int): List<User> {
         return try {

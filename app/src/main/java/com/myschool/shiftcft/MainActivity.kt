@@ -22,8 +22,10 @@ import com.myschool.shiftcft.receiver.MyReceiver
 import com.myschool.shiftcft.receiver.TimeZoneReceiver
 import com.myschool.shiftcft.util.NetworkMonitor
 import com.myschool.shiftcft.viewmodel.NetworkViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity(), CountDialogFragment.CountInputListener {
 
     private val airplaneModeReceiver = MyReceiver()

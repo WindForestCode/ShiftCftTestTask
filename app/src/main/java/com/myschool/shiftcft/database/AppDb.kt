@@ -10,26 +10,4 @@ import com.myschool.shiftcft.model.UserEntity
 abstract class AppDb : RoomDatabase() {
     abstract val userDao: UserDao
 
-    companion object {
-        @Volatile
-        private var INSTANCE: AppDb? = null
-        fun getInstance(context: Context): AppDb {
-            INSTANCE?.let { return it }
-
-            val application = context.applicationContext
-
-            synchronized(this) {
-                INSTANCE?.let { return it }
-            }
-
-            val appDb = Room.databaseBuilder(application, AppDb::class.java, "app_db")
-                .fallbackToDestructiveMigration()
-                .allowMainThreadQueries()
-                .build()
-
-            INSTANCE = appDb
-            return appDb
-        }
-    }
-
 }

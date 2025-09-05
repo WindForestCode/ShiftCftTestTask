@@ -9,20 +9,22 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
-import com.myschool.shiftcft.database.AppDb
 import com.myschool.shiftcft.databinding.FragmentProfileBinding
 import com.myschool.shiftcft.model.User
 import com.myschool.shiftcft.repository.RoomUsersRepository
 import androidx.core.net.toUri
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.runBlocking
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class ProfileFragment : Fragment() {
     companion object {
         const val ARG_USER_ID = "ARG_USER_ID"
 
     }
-
+    @Inject
+    lateinit var repository: RoomUsersRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,8 +33,7 @@ class ProfileFragment : Fragment() {
         val binding = FragmentProfileBinding.inflate(inflater)
 
         val id = arguments?.getString(ARG_USER_ID) ?: "0"
-        val repository =
-            RoomUsersRepository(AppDb.getInstance(requireContext().applicationContext).userDao)
+
 
         var user: User?
         runBlocking {
