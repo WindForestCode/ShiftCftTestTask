@@ -4,12 +4,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.myschool.shiftcft.model.NetworkState
 import com.myschool.shiftcft.util.NetworkMonitor
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class NetworkViewModel(
+@HiltViewModel
+class NetworkViewModel @Inject constructor(
     private val networkMonitor: NetworkMonitor
 ) : ViewModel() {
     private val _networkState = MutableStateFlow<NetworkState>(NetworkState.Connected)

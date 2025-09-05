@@ -12,8 +12,6 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
 import com.myschool.shiftcft.databinding.ActivityMainBinding
 import com.myschool.shiftcft.fragments.CountDialogFragment
 import com.myschool.shiftcft.fragments.UsersFragment
@@ -41,14 +39,8 @@ class MainActivity : AppCompatActivity(), CountDialogFragment.CountInputListener
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val networkMonitor = NetworkMonitor(this)
 
-        val viewModel by viewModels<NetworkViewModel> {
-            viewModelFactory {
-                initializer { NetworkViewModel(networkMonitor) }
-            }
-
-        }
+        val viewModel: NetworkViewModel by viewModels()
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
