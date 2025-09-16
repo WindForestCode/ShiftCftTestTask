@@ -93,6 +93,16 @@ class ProfileFragment : Fragment() {
                 setPackage("com.google.android.apps.maps")
             }
             startActivity(mapIntent)
+            //исправить краш приложение, если нету пакета google maps
+//            try {
+//                if (mapIntent.resolveActivity(requireContext().packageManager) != null) {
+//                    startActivity(mapIntent)
+//                } else {
+//                  //  showNoMapAppDialog()
+//                }
+//            } catch (e: Exception) {
+//                //showError("Не удалось открыть карты")
+//            }
         }
 
         binding.imageBack.setOnClickListener {

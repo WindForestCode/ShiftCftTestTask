@@ -18,7 +18,6 @@ import com.myschool.shiftcft.fragments.UsersFragment
 import com.myschool.shiftcft.model.NetworkState
 import com.myschool.shiftcft.receiver.MyReceiver
 import com.myschool.shiftcft.receiver.TimeZoneReceiver
-import com.myschool.shiftcft.util.NetworkMonitor
 import com.myschool.shiftcft.viewmodel.NetworkViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
