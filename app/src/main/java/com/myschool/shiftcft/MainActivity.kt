@@ -13,12 +13,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.myschool.shiftcft.databinding.ActivityMainBinding
-import com.myschool.shiftcft.fragments.CountDialogFragment
-import com.myschool.shiftcft.fragments.UsersFragment
-import com.myschool.shiftcft.model.NetworkState
-import com.myschool.shiftcft.receiver.MyReceiver
-import com.myschool.shiftcft.receiver.TimeZoneReceiver
-import com.myschool.shiftcft.viewmodel.NetworkViewModel
+import com.myschool.shiftcft.presentation.fragments.CountDialogFragment
+import com.myschool.shiftcft.presentation.fragments.UsersFragment
+import com.myschool.shiftcft.util.NetworkState
+import com.myschool.shiftcft.presentation.receiver.MyReceiver
+import com.myschool.shiftcft.presentation.receiver.TimeZoneReceiver
+import com.myschool.shiftcft.presentation.viewmodel.NetworkViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
